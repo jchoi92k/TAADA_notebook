@@ -10,13 +10,6 @@ This repository is for demonstration purposes.
 
 ## Quick Start (GUI Application)
 
-### Requirements
-- Python 3.8+
-- Dependencies: `spacy`, `PyQt5`, `pandas`, `numpy`
-- Required data files:
-  - `decoding_1_dataframe.csv` (download required)
-  - `pronounce_dic_tran.pkl`
-
 ### Installation
 
 ```bash
