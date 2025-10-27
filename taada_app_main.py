@@ -1852,7 +1852,13 @@ class InternalWidget(QFrame):
 
     def open_result_csv_func(self):
         try:
-            subprocess.Popen(['start', '', os.path.join(os.getcwd(), f'{self.file_name_v.text()}.csv')], shell=True)
+            filepath = os.path.join(os.getcwd(), f'{self.file_name_v.text()}.csv')
+            if sys.platform == 'win32':
+                subprocess.Popen(['start', '', filepath], shell=True)
+            elif sys.platform == 'darwin':  # for macOS
+                subprocess.Popen(['open', filepath])
+            else:  # Lfor inux
+                subprocess.Popen(['xdg-open', filepath])
             self.process.setText('Opened csv file')
         except Exception as e:
             self.process.setText('Unable to open csv file')
@@ -1908,7 +1914,10 @@ style = """
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     try:
-        app.setWindowIcon(QIcon(resource_path('taada_logo.ico')))
+        if sys.platform == 'darwin':  # macOS
+            app.setWindowIcon(QIcon(resource_path('taada_logo.icns')))
+        else:  # Windows/Linux
+            app.setWindowIcon(QIcon(resource_path('taada_logo.ico')))
     except:
         pass
     app.setStyleSheet(style)
